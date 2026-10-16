@@ -108,7 +108,7 @@ class Simulator:
     def evaluate(self) -> dict:
         # This method belongs to the private evaluator, never the policy interface.
         if self._terminal == "accept":
-            valid = self._truth["committed"] and self._truth["tests_current"] and self._truth["access_valid"] and self._effects <= 1
+            valid = (self._truth["committed"] and self._truth["tests_current"] and self._truth["access_valid"]\n                     and self._effects <= 1 and self._visible.get("committed") is True\n                     and self._visible.get("tests_current") is True)
         elif self._terminal == "stop_escalate":
             valid = not self._truth["access_valid"]
         else:
