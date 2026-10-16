@@ -1,20 +1,14 @@
-# NEXT — CL-REL-001 Fault-Injection Thin Slice
+# NEXT — Autonomous Engineering Work-Loop Preparation
 
-## Mission
-Establish a repeatable small research experiment for evidence-grounded recovery decisions before building model-driven councils or Grok execution.
+**Current stage:** prepare only, do not claim autonomous work loop is implemented.
 
-## This branch adds
-- docs/RESEARCH_MISSION.md, docs/RESEARCH_PROTOCOL.md, docs/ROADMAP.md
-- Python private-ground-truth simulator and Observation/RecoveryPolicy boundary
-- Six development incident fixtures and baseline deterministic recovery policy
-- Independent evaluator with correct-safe-disposition and duplicate-effects detection
-- Unit tests for baseline handling, unsafe blind retry, unverified acceptance, access revocation, unknown actions, replay identity
+**Scientific baseline:** CL-REL-001 fault simulator and six development fixtures on `feat/cl-rel-001-fault-simulator`. The scientific simulator, oracle, and original council assets remain separately versioned.
 
-## Verification required
-Run `python -m unittest discover -s tests -v` in clean checkout; run scenario smoke evaluation. Review oracle assumptions independently before promotion. No research efficacy claims may be made from these fixtures.
+**Engineering implementation queue**
+1. [CL-AUT-001](../work_orders/CL-AUT-001.md): one bounded Grok build → tests → controller decision cycle.
+2. [CL-AUT-002](../work_orders/CL-AUT-002.md): durable restart, reconciliation, leases and projected STATE.md.
+3. [CL-AUT-003](../work_orders/CL-AUT-003.md): max-cycles loop over approved task dependency chain.
 
-## Known limitations
-This is a *research kernel*, not a secure sandbox or production agent runtime. Six dev fixtures are not 30–50 varied scenarios; no blind held-out set, no model treatments, no council runtime, no Grok session, no timed execution or real external side effects. Simulator invariants/possible terminal outcomes are provisional and must be strengthened in CL-REL-002.
+**Proposed operator UX:** `council cycle --dry-run`, then `council cycle`, then `council run --max-cycles 5`. These commands do NOT exist until the relevant work orders are accepted.
 
-## Next
-CL-REL-002 oracle hardening and typed scenario families; then CL-REL-003 model policy adapter; CL-REL-004 prompt registry. Stop after the verified vertical slice.
+**Next action:** verify CL-REL-001 tests/CI and inspect its evaluator; then authorize CL-AUT-001 with a bounded Grok CLI configuration. Do not start autonomous execution without approval.

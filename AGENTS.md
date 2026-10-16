@@ -1,12 +1,14 @@
-# Council Lab Agent Contract
+# Council Lab Agent Operating Contract
 
-Read README.md, docs/ARCHITECTURE.md, docs/NEXT.md before changes.
+Read MISSION.md, docs/AUTONOMOUS_LOOP.md, docs/RESEARCH_PROTOCOL.md and docs/NEXT.md before implementing any task.
 
-- Product truth = Git. Execution truth = transactional SQLite. Review/evidence truth = retained artifacts.
-- Original V3 prompts are immutable research artifacts; never rewrite them to suit a new runtime.
-- The CLI, not an LLM, controls task transitions. Builder may not self-certify acceptance.
-- No push to main, live provider, paid data, deployment, trading, secrets, or third-party side effects without scoped approval.
-- Work in separate branches/worktrees for parallel changes, and integrate only reviewed artifacts.
-- Preserve failures, dissent, unknowns, and BLOCK/STOP decisions.
-- Limit modifications to CL-001 scope. Implement no generalized agent platform.
-- Test state validity, dependencies, restart behavior and evidence-reference requirements.
+- **Controller = deterministic Python authority**. Grok CLI is a builder (and optionally a reviewer/planner); its self-report is never acceptance.
+- Loop A (engineering) builds the system. Loop B (research) measures recovery. Do not confound them.
+- Execute only human-approved, bounded work orders with frozen acceptance criteria.
+- Git owns code truth; SQLite owns runtime state; evidence artifacts own validation; STATE.md is generated from SQLite.
+- Original 27 VentureOS prompts are immutable. No hidden oracle access by trial agents.
+- Always test and retain failures. Unknown / contradictory evidence must BLOCK or trigger authorized investigation.
+- Never push, merge, deploy, purchase services or alter production resources automatically.
+- No shell=True, no unbounded retries, no logging secrets, and no tools outside assigned worktree without explicit authorization.
+- Capture provenance (commit SHA, adapter/config, tool commands, scenario hashes, artifacts, decisions).
+- Keep the first release tiny: one Grok worker, one independent deterministic verifier, one controller.

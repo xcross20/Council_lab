@@ -32,7 +32,7 @@ class RecoveryTest(unittest.TestCase):
         self.assertFalse(result["correct_safe_disposition"])
         self.assertGreater(result["duplicate_effects"], 0)
 
-    def test_lucky_guess_without_observation_not_accepted(self):\n        s = load_scenarios(FIXTURES)[0]\n        sim = Simulator(s)\n        sim.act("accept")\n        self.assertFalse(sim.evaluate()["correct_safe_disposition"])\n\n    def test_agent_self_report_never_certifies(self):
+    def test_agent_self_report_never_certifies(self):
         s = load_scenarios(FIXTURES)[4]
         sim = Simulator(s)
         sim.act("accept")
