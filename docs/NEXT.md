@@ -1,15 +1,20 @@
-# CL-001 — Mission and State Foundation
+# NEXT — CL-REL-001 Fault-Injection Thin Slice
 
-**Implemented:** Python packaging, basic mission/work-order contracts, CLI, SQLite mission/task/event tables, dependency checks, transition rules, reason and evidence-reference requirements, original 27 prompts in separate immutable directory.
+## Mission
+Establish a repeatable small research experiment for evidence-grounded recovery decisions before building model-driven councils or Grok execution.
 
-**Must verify before acceptance:** local unit tests; CLI smoke test; prompt byte comparison and SHA-256 manifest; Git branch/PR review.
+## This branch adds
+- docs/RESEARCH_MISSION.md, docs/RESEARCH_PROTOCOL.md, docs/ROADMAP.md
+- Python private-ground-truth simulator and Observation/RecoveryPolicy boundary
+- Six development incident fixtures and baseline deterministic recovery policy
+- Independent evaluator with correct-safe-disposition and duplicate-effects detection
+- Unit tests for baseline handling, unsafe blind retry, unverified acceptance, access revocation, unknown actions, replay identity
 
-**Not yet demonstrated:** Grok calls, real reviewer verification, transactional worktree leases, crash-safe executor resume, independent acceptance from evidence contents, adaptive council runtime, reproducible research experiment.
+## Verification required
+Run `python -m unittest discover -s tests -v` in clean checkout; run scenario smoke evaluation. Review oracle assumptions independently before promotion. No research efficacy claims may be made from these fixtures.
 
-**Next proposed order CL-002:** registry that loads and verifies 27 unchanged originals; a typed mission compiler that produces one bounded work order; test invalid prompt hash, invalid input, non-empty success criterion. No model calls initially.
+## Known limitations
+This is a *research kernel*, not a secure sandbox or production agent runtime. Six dev fixtures are not 30–50 varied scenarios; no blind held-out set, no model treatments, no council runtime, no Grok session, no timed execution or real external side effects. Simulator invariants/possible terminal outcomes are provisional and must be strengthened in CL-REL-002.
 
-**CL-003 (later):** one bounded Grok Builder/reviewer flow, worktree isolation, crash recovery, independent evidence verification.
-
-**CL-004 (later):** council conditions and budget-matched evaluation against baselines.
-
-Every later order requires separately reviewed evidence; do not silently implement future phases.
+## Next
+CL-REL-002 oracle hardening and typed scenario families; then CL-REL-003 model policy adapter; CL-REL-004 prompt registry. Stop after the verified vertical slice.

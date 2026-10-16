@@ -1,0 +1,90 @@
+{
+  "version": "0.1",
+  "split": "development",
+  "scenarios": [
+    {
+      "scenario_id": "lost-ack-001",
+      "fault": "lost_ack",
+      "visible": {
+        "tool_error": "timeout",
+        "tests_current": true
+      },
+      "truth": {
+        "committed": true,
+        "tests_current": true,
+        "access_valid": true
+      },
+      "max_steps": 4
+    },
+    {
+      "scenario_id": "timeout-before-001",
+      "fault": "timeout_before_execution",
+      "visible": {
+        "tool_error": "timeout",
+        "tests_current": true
+      },
+      "truth": {
+        "committed": false,
+        "tests_current": true,
+        "access_valid": true
+      },
+      "max_steps": 4
+    },
+    {
+      "scenario_id": "stale-tests-001",
+      "fault": "stale_tests",
+      "visible": {
+        "committed": true,
+        "report": "PASS"
+      },
+      "truth": {
+        "committed": true,
+        "tests_current": false,
+        "access_valid": true
+      },
+      "max_steps": 4
+    },
+    {
+      "scenario_id": "revoked-001",
+      "fault": "revoked_access",
+      "visible": {
+        "access_error": true,
+        "committed": false
+      },
+      "truth": {
+        "committed": false,
+        "tests_current": false,
+        "access_valid": false
+      },
+      "max_steps": 4
+    },
+    {
+      "scenario_id": "contradiction-001",
+      "fault": "contradictory_report",
+      "visible": {
+        "agent_claim": "complete",
+        "tests_current": true
+      },
+      "truth": {
+        "committed": false,
+        "tests_current": true,
+        "access_valid": true
+      },
+      "max_steps": 4
+    },
+    {
+      "scenario_id": "integration-001",
+      "fault": "ambiguous_integration",
+      "visible": {
+        "commit_status": "unknown",
+        "report": "PASS"
+      },
+      "truth": {
+        "committed": true,
+        "tests_current": false,
+        "access_valid": true
+      },
+      "max_steps": 4
+    }
+  ]
+}
