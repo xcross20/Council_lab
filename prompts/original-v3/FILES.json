@@ -1,0 +1,33 @@
+{
+  "count": 27,
+  "paths": [
+    "prompts/original-v3/README.md",
+    "prompts/original-v3/archetypes/ADVERSARIAL_SKEPTIC.md",
+    "prompts/original-v3/archetypes/CLASSICAL_EXPERT.md",
+    "prompts/original-v3/archetypes/COUNCIL_CHAIR_SEAT.md",
+    "prompts/original-v3/archetypes/ECONOMIC_STRATEGIST.md",
+    "prompts/original-v3/archetypes/MASTER_PRACTITIONER.md",
+    "prompts/original-v3/archetypes/METHODOLOGIST.md",
+    "prompts/original-v3/archetypes/MINORITY_FRONTIER_EXPERT.md",
+    "prompts/original-v3/archetypes/SYSTEMS_THINKER.md",
+    "prompts/original-v3/archetypes/UNCONVENTIONAL_BUILDER.md",
+    "prompts/original-v3/archetypes/USER_OPERATOR_ADVOCATE.md",
+    "prompts/original-v3/briefs/BRAND_MARKETING_COUNCIL.md",
+    "prompts/original-v3/briefs/GO_TO_MARKET_COUNCIL.md",
+    "prompts/original-v3/briefs/MOAT_STRATEGY_COUNCIL.md",
+    "prompts/original-v3/briefs/PRODUCT_UX_COUNCIL.md",
+    "prompts/original-v3/briefs/SECURITY_RELIABILITY_COUNCIL.md",
+    "prompts/original-v3/briefs/SOFTWARE_ARCHITECTURE_COUNCIL.md",
+    "prompts/original-v3/deliberation/ASSUMPTION_MAPPER.md",
+    "prompts/original-v3/deliberation/COUNCIL_CHAIR.md",
+    "prompts/original-v3/deliberation/COUNCIL_COMPOSITION_CRITIC.md",
+    "prompts/original-v3/deliberation/COUNCIL_EXPERIMENT_DESIGNER.md",
+    "prompts/original-v3/deliberation/COUNCIL_FOUNDRY_MASTER.md",
+    "prompts/original-v3/deliberation/COUNCIL_PERFORMANCE_EVALUATOR.md",
+    "prompts/original-v3/deliberation/COUNCIL_SYNTHESIZER.md",
+    "prompts/original-v3/deliberation/CROSS_EXAMINATION_GENERATOR.md",
+    "prompts/original-v3/deliberation/DISSENT_LEDGER_AGENT.md",
+    "prompts/original-v3/deliberation/QUESTION_FOUNDRY_MASTER.md",
+    "prompts/original-v3/deliberation/WORLD_MODEL_BUILDER.md"
+  ]
+}
