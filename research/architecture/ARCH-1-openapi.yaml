@@ -1,0 +1,135 @@
+openapi: 3.1.0
+info:
+  title: Council Lab Stage A Service Contract
+  version: 1.0.0
+  description: |
+    Frozen external API for Stage A implementation-transfer experiments.
+    Derived from AC-1. Implementation-neutral. Does not expose evaluator
+    state, logical-operation ground truth, or internal transitions.
+
+servers:
+  - url: /
+
+paths:
+  /operations:
+    post:
+      operationId: createOperation
+      summary: Submit an operation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOperationRequest'
+      responses:
+        '202':
+          description: Accepted. Outcome not yet known.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateOperationResponse'
+        '400':
+          description: |
+            Parameter validation failure, or C0 rejection of idempotency_key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: |
+            C1 only: same idempotency_key with different normalized parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /operations/{operation_id}:
+    get:
+      operationId: getOperationStatus
+      summary: Retrieve status by service-generated operation_id
+      parameters:
+        - name: operation_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Status returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationStatus'
+        '404':
+          description: No record of this operation_id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    CreateOperationRequest:
+      type: object
+      required:
+        - parameters
+        - payload
+      properties:
+        client_correlation_id:
+          type: string
+          description: Optional client-generated correlation token. Not used for lookup.
+        idempotency_key:
+          type: string
+          description: |
+            Required for C1. Must be rejected with 400 on C0.
+        parameters:
+          type: object
+          additionalProperties: true
+          description: Normalized parameter map. Exact fields defined by task schema.
+        payload:
+          type: string
+          format: byte
+          description: Opaque payload.
+
+    CreateOperationResponse:
+      type: object
+      required:
+        - operation_id
+      properties:
+        operation_id:
+          type: string
+          format: uuid
+          description: Service-generated identifier. This is the only ID accepted by GET /operations/{id}.
+        client_correlation_id:
+          type: string
+
+    OperationStatus:
+      type: object
+      required:
+        - operation_id
+        - status
+      properties:
+        operation_id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum:
+            - PENDING
+            - COMMITTED
+            - FAILED
+        effect_ref:
+          type: string
+          description: Present when status is COMMITTED.
+
+    ErrorResponse:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+        message:
+          type: string
