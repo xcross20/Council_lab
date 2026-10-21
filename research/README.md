@@ -4,22 +4,31 @@ This directory contains the formal Research Product Definition and acceptance ar
 
 ## Status
 
-**M0 — Research Product Definition**: In progress (PR-1 through AC-5 being elaborated individually).
+**M0 — Research Product Definition:** In progress. PR-1, PR-2, RE-1, and RE-2 are drafts for independent review. Documentation is not implementation acceptance.
 
-No implementation code is written until M0 is independently reviewed and approved.
+No new Stage A implementation is authorized until M0 has been independently reviewed and approved.
 
-## Structure
+## M0 artifacts
 
-- `PR-1_research_question.md` — Primary research question, success, and stop criteria
-- `PR-2_related_work_boundary.md` — Related-work boundary and artifact status
-- `RE-1_reference_experience.md` — Reference experience walkthrough
-- `RE-2_expected_traces.md` — Sample scored ledgers
-- `AC-1_external_spec_and_authorship.md` — Frozen external specification and independent authorship plan
-- `AC-2_evaluator_contract.md` — Evaluator scoring contract
-- `AC-3_classification_table.md` — Contract behavior classification
-- `AC-4_continuation_gate.md` — Audited continuation criteria
-- `AC-5_claim_boundary.md` — Deterministic-first claim boundary
+| ID | File | Purpose | Status |
+|---|---|---|---|
+| PR-1 | [PR-1-research-question.md](m0/PR-1-research-question.md) | Falsifiable transfer hypothesis, C0/C1 strata, fixed policies, deadlines, stop gates | Revised draft |
+| PR-2 | [PR-2-related-work-boundary.md](m0/PR-2-related-work-boundary.md) | Limbo prior-art boundary and replication versus novelty | Revised draft |
+| RE-1 | [RE-1-reference-experience.md](m0/RE-1-reference-experience.md) | End-to-end researcher journey **and integrated functional, presentation, data-integrity, and scientific acceptance** | Draft |
+| RE-2 | [RE-2-expected-traces.md](m0/RE-2-expected-traces.md) | Five illustrative scored traces including known recovery cases, conformance failure and indeterminate settlement | Draft |
 
-## Governing rule
+## Remaining proposed M0 contracts (not yet committed)
 
-No code without an approved user journey. No architecture without explicit contracts. No accepted feature without independent evidence. No released result without reproducibility. No claim of success without a measured user outcome.
+- `AC-1-external-spec-and-authorship.md` — Frozen external specification and independently authored implementation plan
+- `AC-2-evaluator-contract.md` — Independent effect-history scoring and settlement
+- `AC-3-classification-table.md` — Contract/implementation/controller/evaluator fault classification
+- `AC-4-continuation-gate.md` — Controlled audit and continuation decision
+- `AC-5-claim-boundary.md` — Deterministic-first research and novelty limits
+
+## Operating sequence
+
+User outcome → reference experience → architecture and data contracts → vertical slices → implementation → independent functional, visual/presentation, and data-integrity acceptance → release evidence → measured user outcome.
+
+**Governing rule:** No code without an approved user journey. No architecture without explicit contracts. No accepted feature without independent evidence. No released result without reproducibility. No claim of success without a measured user outcome.
+
+Reference examples are illustrative only. They are not experimental results. A successful replication is not automatically a novel research finding.
