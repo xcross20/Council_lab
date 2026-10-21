@@ -1,0 +1,95 @@
+**M0 — Council Lab Contract Transfer Research Product Definition**
+
+This is the first deliverable under the senior-engineering model. No implementation architecture is selected until these three artifacts are independently reviewed and approved.
+
+---
+
+### 1. Product Requirements
+
+**Primary researcher**  
+An independent research engineer (or small group) evaluating whether published agent-reliability interventions retain their reported benefits when the underlying service is independently implemented under an identical external contract. The researcher is not building a general agent platform.
+
+**Research question (Stage A — Implementation Transfer)**  
+Does a contract-aware deterministic recovery controller preserve safe completed recovery under late-commit faults when the service implementation and scheduling mechanism are independently authored, while the observable contract, policy, task, and scoring remain fixed?
+
+**Falsifiable claim**  
+A contract-aware deterministic controller that correctly handles the published late-commit limitation in a reference implementation continues to do so in an independently implemented service that conforms to the same external specification. Any material degradation is attributable to a specific, auditable mismatch rather than an unexplained discrepancy.
+
+**Success criteria**  
+- The reference implementation reproduces the known Limbo late-commit result (verification alone cannot guarantee exactly-once without an in-flight bound; a stable key or equivalent contract mechanism can).  
+- The independent implementation produces observationally equivalent behavior under the same contract and fault schedule.  
+- Any transfer failure is isolated to a concrete semantic or documentation mismatch that can be named and controlled.  
+- The researcher can reach an evidence-supported continue / narrow / stop decision from the scored comparison.
+
+**Stop criteria**  
+- Results only reproduce the already-characterized late-commit / observational non-identifiability limitation (replication, not contribution).  
+- Discrepancies are explained by evaluator defects, harness races, or shared implementation assumptions after audit.  
+- Safe completed recovery cannot be measured independently of the agent’s self-report.  
+- Artifact status or model provenance prevents a credible comparison to the published claim.
+
+**Related-work boundary**  
+Limbo (Li, arXiv:2609.29095, Sept 2026) is the primary reference. It demonstrates that no verification-only policy is exactly-once under late commits without a bound on in-flight time, that frontier models duplicate in ~56 % of late-commit episodes, and that agents report success in 90 % of episodes in which they duplicated an effect. Code is stated to be released upon publication and was not publicly available at the time of this definition. UndoBench and RetryBench provide complementary paired-trial and evidence-justified-retry designs but are secondary for Stage A.
+
+---
+
+### 2. Reference Experience
+
+**Concrete walkthrough: Late-commit on a single write (Limbo-style)**
+
+**Setup**  
+- Task: Create exactly one deployment job via a service that accepts an optional idempotency key.  
+- Frozen external specification: Write endpoint returns timeout or 500; read-back of job status is eventually consistent with documented lag; key, when present, deduplicates concurrent submissions of the same operation.  
+- Two worlds that are observation-equivalent at the moment of timeout:  
+  - World Absent: request never executed.  
+  - World Late: request is still in flight and will commit after the client has stopped waiting.  
+- Both produce the same initial observation: timeout + empty (or lagging) read.
+
+**Controlled fault condition**  
+Late commit with fixed or heavy-tailed delay. No redelivery in Stage A. Effect-observation horizon extends beyond the task deadline so that a late commit is visible to the evaluator even if the controller has already terminated.
+
+**Policies under test (deterministic first)**  
+1. Verify-before-retry (read status, retry if absent).  
+2. Contract-aware controller (attaches stable key on first attempt; treats key as the source of truth for deduplication).  
+3. Always-escalate (report unresolved).
+
+**Expected execution traces (illustrative)**  
+- Verify-before-retry on World Late: read returns empty → retry → second commit. Evaluator records duplicate.  
+- Contract-aware on both worlds: key present → service returns prior result or no-ops the second submission. Evaluator records exactly one effect.  
+- Always-escalate: no second effect, but task remains unresolved.
+
+**Comparison output**  
+Table of safe completed recovery, duplicate effects, unresolved episodes, and false completion reports, broken by world and policy. The known Limbo result is that verification alone fails the late-commit case while a correctly used key succeeds.
+
+**Scientific decision**  
+- If the independent implementation matches the reference on both worlds under the frozen contract, Stage A passes and Stage B (contract robustness) becomes eligible.  
+- If it diverges, the researcher isolates the mismatch (scheduling, key enforcement boundary, observation lag, etc.) before any further claims.  
+- If only the known limitation appears, the novelty claim stops.
+
+This walkthrough can be performed on paper or with scripted traces before any production code is written.
+
+---
+
+### 3. Acceptance Specification
+
+The following requirements must be independently reviewable before implementation begins.
+
+| ID | Requirement | Evidence of satisfaction |
+|----|-------------|--------------------------|
+| PR-1 | Research question, success criteria, and stop criteria are stated so that a third party can determine whether a future result meets them. | Written product requirements approved by independent reviewer. |
+| PR-2 | Related-work boundary correctly identifies Limbo’s late-commit result and notes artifact availability. | Citation and status check recorded. |
+| RE-1 | Reference experience includes observation-equivalent worlds, explicit effect-observation horizon, and separation of task deadline from final scoring. | Walkthrough reviewed and accepted. |
+| RE-2 | Expected traces distinguish verification failure from contract success without relying on agent self-report. | Sample scored ledger shown. |
+| AC-1 | External specification is frozen and shared; implementations are independently authored; policies cannot inspect implementation internals. | Spec and authorship plan reviewed. |
+| AC-2 | Evaluator scores against authoritative effect history, not controller prose; pending operations are settled before final grading. | Evaluator contract reviewed. |
+| AC-3 | Contract-respecting behavior, consumer misinterpretation, and provider nonconformance are separately classifiable. | Classification table (as in prior refinement) accepted. |
+| AC-4 | Continuation requires an audited, causally isolated discrepancy that is not already characterized by existing work. | Gate language matches Perplexity refinement. |
+| AC-5 | Deterministic policies are required before any model runs; claim boundary is explicit. | Protocol states that a deterministic result validates semantics only. |
+
+**Governing rule**  
+No code is written until M0 is independently reviewed and approved. Architecture selection occurs only after these artifacts exist.
+
+---
+
+This completes the M0 Research Product Definition. The next step, once these three artifacts are reviewed, is M1 — Architecture & Experimental Contracts (component boundaries, execution semantics, typed records, oracle isolation). 
+
+Would you like me to expand any of the three artifacts (for example, a more detailed sample ledger or the exact frozen external specification language), or proceed to draft the M1 outline?
