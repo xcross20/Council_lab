@@ -2,34 +2,55 @@
 
 **ID**: AC-3  
 **Milestone**: M0 — Research Product Definition  
-**Status**: Draft for independent review  
+**Status**: Revised draft for independent review  
 **Date**: 2026-10-21  
-**Depends on**: PR-1, AC-1, AC-2, RE-1, RE-2
+**Depends on**: PR-1, AC-1, AC-2, RE-1, RE-2  
+**Revision note**: Replaces single exclusive categories with three independent dimensions (experiment validity, requirement outcome, cause attribution). Distinguishes INDETERMINATE from measurement invalid. Requires dual reporting populations.
 
 ## Purpose
-Provide a mutually exclusive, auditable classification for every observed discrepancy so that a third party can determine whether a result is a conformance failure, a controller defect, an invalid experimental fixture, a measurement defect, a permitted implementation sensitivity, or a specification incompleteness. Classification explains a result; it does not convert a failed transfer hypothesis into a pass.
+Record three independent classifications for every episode so that experiment validity, requirement outcome, and cause attribution cannot overwrite one another. Classification explains a result; it does not convert a failed transfer hypothesis into a pass.
 
-## Classification Categories
+## Three Independent Classification Dimensions
 
-| Category | Definition | Primary evidence | Effect on transfer assessment |
-|----------|------------|------------------|-------------------------------|
-| Conformance failure | Service violates a guarantee in the frozen external contract (AC-1) | External conformance suite failure | Implementation excluded from transfer assessment for that stratum |
-| Controller defect | Unchanged controller violates an explicit requirement of the frozen contract or PR-1 policy under a conforming service | Controller action or disposition contradicts the policy table or contract | Transfer hypothesis fails for that stratum |
-| Invalid experimental fixture | Absent and late worlds do not present matching controller-visible histories through the decision point, or required fault conditions were not realized | Observation-equivalence check fails | Run is invalid; not used for transfer assessment |
-| Measurement defect | Evaluator ledger is incomplete, inconsistent, or violates a monotonicity invariant (AC-2) | Missing events, contradictory records, or terminal-state violation | Run is measurement-invalid; not used for scientific claim |
-| Permitted implementation sensitivity | Different allowed schedules or internal timings produce different outcomes while both implementations conform and fixtures are valid | Cross-implementation difference within contract-permitted variation | Recorded; does not automatically fail transfer |
-| Specification incompleteness | Frozen contract leaves a consequential question unspecified that affected the outcome | Audit shows both implementations followed the written contract yet diverged on an underspecified point | Recorded; may justify a follow-on specification clarification |
-| Unresolved | Bounded audit (AC-4) completed without establishing a cause | Audit log | Does not support transfer or novelty claim |
+| Dimension | Possible values | Question answered |
+|-----------|-----------------|-------------------|
+| Experiment validity | VALID, INVALID_FIXTURE, INVALID_MEASUREMENT, INDETERMINATE | Can this run support the intended comparison? |
+| Requirement outcome | PASS, FAIL, NOT_ASSESSABLE | Did the controller satisfy the prespecified safety and completion requirements? |
+| Cause attribution | SERVICE_CONFORMANCE, CONTROLLER_DEFECT, PERMITTED_SCHEDULING, SPECIFICATION_GAP, MEASUREMENT_DEFECT, UNRESOLVED (multiple allowed when independently supported) | What explains an observed discrepancy? |
+
+Cause attribution may list multiple findings. A primary disposition may be chosen by precedence for operational convenience, but secondary defects are retained.
 
 ## Decision Procedure
-1. Check external conformance (AC-1). Failure → Conformance failure. Stop for that implementation/stratum.
-2. Check fixture validity (observation equivalence through decision point). Failure → Invalid experimental fixture.
-3. Check evaluator integrity and settlement (AC-2). Failure → Measurement defect or Indeterminate.
-4. Apply the unchanged controller against the settled ledger and PR-1 requirements. Violation → Controller defect (transfer hypothesis fails).
-5. If both implementations conform, fixtures are valid, evaluator is sound, and outcomes differ within contract-permitted variation → Permitted implementation sensitivity.
-6. If the difference is not explained by the written contract → Specification incompleteness or Unresolved after audit.
+1. Record the episode and immutable evidence references.
+2. Evaluate service conformance independently (AC-1).
+3. Validate the experimental fixture and observation-equivalence requirement.
+4. Validate evaluator integrity and settlement completeness (AC-2).
+5. Determine eligibility for the transfer contrast.
+6. Score each prespecified safety, completion, and reporting requirement wherever evidence permits.
+7. Record all observed discrepancies and conduct bounded causal attribution (AC-4).
+8. Produce the transfer verdict without changing the underlying requirement outcome.
+9. Preserve all invalid, unresolved, and excluded episodes in the study record.
 
-Classification is recorded with evidence pointers. It does not override the binary transfer-hypothesis outcome defined in PR-1.
+## Key Distinctions
+- A requirement violation establishes an outcome failure, not automatically a controller defect. Score the failed requirement first; then determine whether the controller violated its own prescribed decision rules.
+- INDETERMINATE: complete and valid evidence of an unresolved request at the settlement cap. Not a measurement defect.
+- INVALID_MEASUREMENT: missing, contradictory, or unreliable authoritative instrumentation.
+- Invalid or ineligible comparisons are reported separately and cannot be counted as either success or failure of the scientific transfer contrast.
+- A failed requirement in an eligible, valid transfer comparison counts against the prespecified hypothesis.
+
+## Reporting Populations
+- **Scheduled episodes**: Every prespecified episode, including invalid, cancelled, and indeterminate runs.
+- **Eligible transfer comparisons**: Only episodes meeting the frozen apparatus and conformance prerequisites.
+
+Both denominators and exclusion reasons are reported.
+
+## Precondition Matrix (for eligibility)
+- Contract stratum fixed?
+- Both implementations conforming?
+- Fault-pair fixture valid?
+- Authoritative scoring reliable?
+- Settlement completed or explicitly marked indeterminate?
+- Unchanged policy and required input budget preserved?
 
 ## Evidence of Satisfaction
-An independent reviewer can apply this table to any future run record and reach the same category, and can confirm that a classified discrepancy did not convert a failed transfer hypothesis into a successful one.
+Two independent reviewers given the same evidence should produce identical eligibility, requirement, and attribution records—or identify precisely which field remains disputed.
